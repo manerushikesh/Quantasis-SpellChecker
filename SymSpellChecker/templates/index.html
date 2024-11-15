@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Spellchecker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <h1>Quantasis X Rushikesh SpellChecker</h1>
+    <form method="POST" action="/process" enctype="multipart/form-data">
+        <label>Input Type:</label>
+        <select name="input_type">
+            <option value="text">Type Text</option>
+            <option value="file">Upload File</option>
+        </select><br><br>
+
+        <textarea name="user_text" rows="10" cols="50" placeholder="Type your text here..."></textarea><br><br>
+        <input type="file" name="user_file"><br><br>
+
+        <button type="submit">Submit Input</button>
+    </form>
+
+    {% if original_text %}
+    <h2>Results:</h2>
+    <div>
+        <h3>Original Text:</h3>
+        <pre>{{ original_text }}</pre>
+    </div>
+    <div>
+        <h3>Corrected Text:</h3>
+        <pre>{{ corrected_text }}</pre>
+    </div>
+    <div>
+        <h3>Corrections Made:</h3>
+        <ul>
+            {% for wrong, correct in corrections.items() %}
+            <li>{{ wrong }} ➡ {{ correct }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <a href="{{ output_file_path }}" download>Download Corrected File</a>
+    {% endif %}
+</body>
+
+</html>
